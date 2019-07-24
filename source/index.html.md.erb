@@ -28,22 +28,21 @@ You’ve got an idea in mind. Let’s get it to production.
 
 ```shell
 # With shell, you can just pass the correct header with each request
-curl "https://api.batchpack.co/v1/"
--H "Authorization: AUTH_KEY"
--H "apikey: API_KEY"
+curl "https://api.batchpack.co/v1/example_endpoint/API_KEY"
+-H "BATCH_KEY: BTOKEN"
 ```
 
-> Make sure to keep your `Authorization` & `Api Key` save.
+> Make sure to keep your `BATCH_KEY` & `API_KEY` save.
 
-Before we get started, sign up to BatchPack for free and collect your live API key from the Developer Dashboard. [developer portal](http://app.batchpack.co).
+Before we get started, sign up to BatchPack for free and collect your live API_KEY from the Dashboard. [developer portal](http://app.batchpack.co).
 
-Next, enter your Api Key and Authorization key to your headers - as both the originator and recipient.
+Next, enter your Api Key and BATCH_KEY key to your headers - as both the originator and recipient.
 
-`Api Key ` &
-`Authorization`
+`API_KEY` &
+`BATCH_KEY`
 
 <aside class="notice">
-  You must replace <code>Api Key</code> with your personal API key.
+  You must replace <code>API_KEY</code> and <code>BATCH_KEY</code> with your personal Credentials.
 </aside>
 
 # Programmatic SMS
@@ -52,9 +51,8 @@ Next, enter your Api Key and Authorization key to your headers - as both the ori
 
 
 ```shell
-curl "https://api.batchpack.co/v1/company/send_message" \
--H "Authorization: AUTH_KEY" \
--H "apikey: API_KEY" \
+curl "https://api.batchpack.co/v1/company/send_message/API_KEY" \
+-H "BATCH_KEY: BTOKEN" \
 -d '{"fromPhoneNumber": "+213456790", "toPhoneNumber": +15467876786, "message": "Hi There, Thanks!}' \
 -X POST
 ```
@@ -81,7 +79,7 @@ Using BatchPack's REST API, you can send outgoing SMS messages from your BatchPa
 
 ### HTTP Request
 
-`POST https://api.batchpack.co/v1/company/send_message`
+`POST https://api.batchpack.co/v1/company/send_message/API_KEY`
 
 ### Query Parameters
 
@@ -99,9 +97,8 @@ callback | false | Add a url for receving webhook.
 ## Create Sender ID
 
 ```shell
-curl "https://api.batchpack.co/v1/company/buy_sender_id" \
--H "Authorization: AUTH_KEY" \
--H "apikey: API_KEY" \
+curl "https://api.batchpack.co/v1/company/buy_sender_id/API_KEY" \
+-H "BATCH_KEY: BTOKEN" \
 -d '{"senderId": "COCACOLA", "comments": "My new sms id for promotional messages"}' \
 -X POST
 ```
@@ -125,7 +122,7 @@ Alphanumeric sender IDs are used for branded one-way messaging. Alphanumeric sen
 
 ### HTTP Request
 
-`POST https://api.batchpack.co/v1/company/buy_sender_id`
+`POST https://api.batchpack.co/v1/company/buy_sender_id/API_KEY`
 
 ### URL Parameters
 
@@ -137,33 +134,32 @@ comments | Any thing random
 ## List Sender ID
 
 ```shell
-curl "https://api.batchpack.co/v1/company/list_sender_id" \
--H "Authorization: AUTH_KEY" \
--H "apikey: API_KEY" \
+curl "https://api.batchpack.co/v1/company/list_sender_id/API_KEY" \
+-H "BATCH_KEY: BTOKEN" \
 ```
 
 > Response:
 
 ```json
 [
-  {
-    "id": 3,
-    "sender_id": "8909887",
-    "comment": "This is my first sender id",
-    "status": "Active",
-    "user_id": 6,
-    "created_at": "2019-07-09T07:31:52.627Z",
-    "updated_at": "2019-07-09T07:31:52.627Z"
-  },
-  {
-    "id": 3,
-    "sender_id": "FACEBOOK",
-    "comment": "This is my first sender id",
-    "status": "Active",
-    "user_id": 6,
-    "created_at": "2019-07-09T07:31:52.627Z",
-    "updated_at": "2019-07-09T07:31:52.627Z"
-  }
+{
+  "id": 3,
+  "sender_id": "8909887",
+  "comment": "This is my first sender id",
+  "status": "Active",
+  "user_id": 6,
+  "created_at": "2019-07-09T07:31:52.627Z",
+  "updated_at": "2019-07-09T07:31:52.627Z"
+},
+{
+  "id": 3,
+  "sender_id": "FACEBOOK",
+  "comment": "This is my first sender id",
+  "status": "Active",
+  "user_id": 6,
+  "created_at": "2019-07-09T07:31:52.627Z",
+  "updated_at": "2019-07-09T07:31:52.627Z"
+}
 ]
 ```
 
@@ -172,49 +168,48 @@ Use this endpoint to get all available sender ID
 
 ### HTTP Request
 
-`POST https://api.batchpack.co/v1/company/list_sender_id`
+`POST https://api.batchpack.co/v1/company/list_sender_id/API_KEY`
 
-Description here
+This endpoint retruns an array of all the sms sent 
 
 ## List All SMS
 
 
 ```shell
-curl "https://api.batchpack.co/v1/company/view_messages/sammykay" \
--H "Authorization: AUTH_KEY" \
--H "apikey: API_KEY" \
+curl "https://api.batchpack.co/v1/company/view_messages/sammykay/API_KEY" \
+-H "BATCH_KEY: BTOKEN" \
 ```
 
 > Response:
 
 ```json
 [
-  {
-    "id": 24,
-    "message_body": "Transaction sms",
-    "receiver_number": "+2348107176019",
-    "message_callback": "http://4a5fe8c3.ngrok.io/v1/agents/wehbook",
-    "user_id": 6,
-    "created_at": "2019-07-10T16:47:36.073Z",
-    "updated_at": "2019-07-10T16:47:36.073Z",
-    "mesage_refernce": "SM39eb77bea06e40b09fb7826fc6cfaa68",
-    "status": "success",
-    "cost": "2.0",
-    "send_id": "TESTSAAS"
-  },
-  {
-    "id": 48,
-    "message_body": "Text test conditonal sidekiq",
-    "receiver_number": "+256752503147",
-    "message_callback": null,
-    "user_id": 6,
-    "created_at": "2019-07-12T20:25:16.072Z",
-    "updated_at": "2019-07-12T20:25:16.072Z",
-    "mesage_refernce": "SMfcd11e63c42e41068f48fa13e22aea4b",
-    "status": "queued",
-    "cost": "2.0",
-    "send_id": "+18066864491"
-  }
+{
+  "id": 24,
+  "message_body": "Transaction sms",
+  "receiver_number": "+2348107176019",
+  "message_callback": "http://4a5fe8c3.ngrok.io/v1/agents/wehbook",
+  "user_id": 6,
+  "created_at": "2019-07-10T16:47:36.073Z",
+  "updated_at": "2019-07-10T16:47:36.073Z",
+  "mesage_refernce": "SM39eb77bea06e40b09fb7826fc6cfaa68",
+  "status": "success",
+  "cost": "2.0",
+  "send_id": "TESTSAAS"
+},
+{
+  "id": 48,
+  "message_body": "Text test conditonal sidekiq",
+  "receiver_number": "+256752503147",
+  "message_callback": null,
+  "user_id": 6,
+  "created_at": "2019-07-12T20:25:16.072Z",
+  "updated_at": "2019-07-12T20:25:16.072Z",
+  "mesage_refernce": "SMfcd11e63c42e41068f48fa13e22aea4b",
+  "status": "queued",
+  "cost": "2.0",
+  "send_id": "+18066864491"
+}
 ]
 ```
 
@@ -224,7 +219,7 @@ You only need to supply the unique client id that was returned upon creation.
 
 ### HTTP Request
 
-`GET https://api.batchpack.co/v1/company/view_messages/:username`
+`GET https://api.batchpack.co/v1/company/view_messages/API_KEY`
 
 # BatchPack Verify
 
@@ -232,9 +227,8 @@ You only need to supply the unique client id that was returned upon creation.
 
 
 ```shell
-curl "https://api.batchpack.co/v1/verify/creat_app" \
--H "Authorization: AUTH_KEY" \
--H "apikey: API_KEY" \
+curl "https://api.batchpack.co/v1/verify/creat_app/API_KEY" \
+-H "BATCH_KEY: BTOKEN" \
 -d '{"appname": "Verify App", "comments": "DIGITALOCEAN"}' \
 -X POST
 ```
@@ -256,7 +250,7 @@ As part of BatchPack's account security offerings, the BatchPack Verify API make
 
 ### HTTP Request
 
-`POST https://api.batchpack.co/v1/verify/creat_app`
+`POST https://api.batchpack.co/v1/verify/creat_app/API_KEY`
 
 ### Query Parameters
 
@@ -272,9 +266,8 @@ comments | true | Any random.
 ## Send OTP
 
 ```shell
-curl "https://api.batchpack.co/v1/verify/initiate_otp" \
--H "Authorization: AUTH_KEY" \
--H "apikey: API_KEY" \
+curl "https://api.batchpack.co/v1/verify/initiate_otp/API_KEY" \
+-H "BATCH_KEY: BTOKEN" \
 -d '{"phone": "9087656788", "countryCode": "+1", "verifyApp": "GOOG"}' \
 -X POST
 ```
@@ -288,12 +281,13 @@ curl "https://api.batchpack.co/v1/verify/initiate_otp" \
 }
 ```
 
-Description of OTP
+When the user is validating their phone number on your app, BatchPack Verify sends the user a 4-10 digit verification code via SMS
+
 <%= image_tag "goog.jpeg" %>
 
 ### HTTP Request
 
-`POST https://api.batchpack.co/v1/verify/initiate_otp`
+`POST https://api.batchpack.co/v1/verify/initiate_otp/API_KEY`
 
 ### URL Parameters
 
@@ -307,9 +301,8 @@ callback | false | A POST endpoint to recive the sucess or failure response
 ## Complete Verification
 
 ```shell
-curl "https://api.batchpack.co/v1/verify/verify_otp" \
--H "Authorization: AUTH_KEY" \
--H "apikey: API_KEY" \
+curl "https://api.batchpack.co/v1/verify/verify_otp/API_KEY" \
+-H "BATCH_KEY: BTOKEN" \
 -d '{"phone": "9087656788", "otp": "39751"}' \
 -X POST
 ```
@@ -323,12 +316,12 @@ curl "https://api.batchpack.co/v1/verify/verify_otp" \
 }
 ```
 
-Description about verified OTP
+Complete verification api checks if the user’s input matches the code. If they match, Verify registers the phone number as approved.
 
 
 ### HTTP Request
 
-`POST https://api.batchpack.co/v1/verify/verify_otp`
+`POST https://api.batchpack.co/v1/verify/verify_otp/API_KEY`
 
 
 # Billing
@@ -337,9 +330,8 @@ Description about verified OTP
 
 
 ```shell
-curl "https://api.batchpack.co/v1/company/get_balances" \
--H "Authorization: AUTH_KEY" \
--H "apikey: API_KEY" \
+curl "https://api.batchpack.co/v1/company/get_balances/API_KEY" \
+-H "BATCH_KEY: BTOKEN" \
 ```
 
 > Response:
@@ -350,13 +342,13 @@ curl "https://api.batchpack.co/v1/company/get_balances" \
   "totalUsed": 3074.0,
   "currentBalance": 1926.0,
   "currency": {
-    "code": "USD",
-    "name": "US Dollar",
-    "decimalPlaces": 2,
-    "displaySymbol": "$",
-    "nameCode": "currency.USD",
-    "displayLabel": "US Dollar ($)"
-  }
+  "code": "USD",
+  "name": "US Dollar",
+  "decimalPlaces": 2,
+  "displaySymbol": "$",
+  "nameCode": "currency.USD",
+  "displayLabel": "US Dollar ($)"
+}
 }
 ```
 
@@ -364,7 +356,7 @@ Check available Balance on your BatchPack's account
 
 ### HTTP Request
 
-`GET https://api.batchpack.co/v1/verify/creat_app`
+`GET https://api.batchpack.co/v1/verify/creat_app/API_KEY`
 
 
 <aside class="success">
