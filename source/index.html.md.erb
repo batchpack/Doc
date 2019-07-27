@@ -6,6 +6,7 @@ language_tabs: # must be one of https://git.io/vQNgJ
 
 toc_footers:
 - <a href='https://app.batchpack.co'>Sign Up for a BatchPack Key</a>
+- <a href='https://batchpack.co/contact'>Build a Library for BatchPack</a>
 
 includes:
 - errors
@@ -28,21 +29,21 @@ You’ve got an idea in mind. Let’s get it to production.
 
 ```shell
 # With shell, you can just pass the correct header with each request
-curl "https://api.batchpack.co/v1/example_endpoint/API_KEY"
--H "BATCH_KEY: BTOKEN"
+curl "https://api.batchpack.co/v1/example_endpoint/BTOKEN"
+-H "apikey: API_KEY"
 ```
 
 > Make sure to keep your `BATCH_KEY` & `API_KEY` save.
 
-Before we get started, sign up to BatchPack for free and collect your live API_KEY from the Dashboard. [developer portal](http://app.batchpack.co).
+Before we get started, sign up to BatchPack for free and collect your live API_KEY from the Dashboard. [Admin Dashboard](http://app.batchpack.co).
 
 Next, enter your Api Key and BATCH_KEY key to your headers - as both the originator and recipient.
 
 `API_KEY` &
-`BATCH_KEY`
+`BTOKEN`
 
 <aside class="notice">
-  You must replace <code>API_KEY</code> and <code>BATCH_KEY</code> with your personal Credentials.
+  You must replace <code>API_KEY</code> and <code>BTOKEN</code> with your personal Credentials.
 </aside>
 
 # Programmatic SMS
@@ -51,8 +52,8 @@ Next, enter your Api Key and BATCH_KEY key to your headers - as both the origina
 
 
 ```shell
-curl "https://api.batchpack.co/v1/company/send_message/API_KEY" \
--H "BATCH_KEY: BTOKEN" \
+curl "https://api.batchpack.co/v1/company/send_message/BTOKEN" \
+-H "apikey: API_KEY" \
 -d '{"fromPhoneNumber": "+213456790", "toPhoneNumber": +15467876786, "message": "Hi There, Thanks!}' \
 -X POST
 ```
@@ -79,7 +80,7 @@ Using BatchPack's REST API, you can send outgoing SMS messages from your BatchPa
 
 ### HTTP Request
 
-`POST https://api.batchpack.co/v1/company/send_message/API_KEY`
+`POST https://api.batchpack.co/v1/company/send_message/BTOKEN`
 
 ### Query Parameters
 
@@ -97,8 +98,8 @@ callback | false | Add a url for receving webhook.
 ## Create Sender ID
 
 ```shell
-curl "https://api.batchpack.co/v1/company/buy_sender_id/API_KEY" \
--H "BATCH_KEY: BTOKEN" \
+curl "https://api.batchpack.co/v1/company/buy_sender_id/BTOKEN" \
+-H "apikey: API_KEY" \
 -d '{"senderId": "COCACOLA", "comments": "My new sms id for promotional messages"}' \
 -X POST
 ```
@@ -122,7 +123,7 @@ Alphanumeric sender IDs are used for branded one-way messaging. Alphanumeric sen
 
 ### HTTP Request
 
-`POST https://api.batchpack.co/v1/company/buy_sender_id/API_KEY`
+`POST https://api.batchpack.co/v1/company/buy_sender_id/BTOKEN`
 
 ### URL Parameters
 
@@ -134,8 +135,8 @@ comments | Any thing random
 ## List Sender ID
 
 ```shell
-curl "https://api.batchpack.co/v1/company/list_sender_id/API_KEY" \
--H "BATCH_KEY: BTOKEN" \
+curl "https://api.batchpack.co/v1/company/list_sender_id/BTOKEN" \
+-H "apikey: API_KEY" \
 ```
 
 > Response:
@@ -168,7 +169,7 @@ Use this endpoint to get all available sender ID
 
 ### HTTP Request
 
-`POST https://api.batchpack.co/v1/company/list_sender_id/API_KEY`
+`POST https://api.batchpack.co/v1/company/list_sender_id/BTOKEN`
 
 This endpoint retruns an array of all the sms sent 
 
@@ -176,8 +177,8 @@ This endpoint retruns an array of all the sms sent
 
 
 ```shell
-curl "https://api.batchpack.co/v1/company/view_messages/API_KEY" \
--H "BATCH_KEY: BTOKEN" \
+curl "https://api.batchpack.co/v1/company/view_messages/BTOKEN" \
+-H "apikey: API_KEY" \
 ```
 
 > Response:
@@ -219,7 +220,7 @@ You only need to supply the unique client id that was returned upon creation.
 
 ### HTTP Request
 
-`GET https://api.batchpack.co/v1/company/view_messages/API_KEY`
+`GET https://api.batchpack.co/v1/company/view_messages/BTOKEN`
 
 # BatchPack Verify
 
@@ -227,8 +228,8 @@ You only need to supply the unique client id that was returned upon creation.
 
 
 ```shell
-curl "https://api.batchpack.co/v1/verify/creat_app/API_KEY" \
--H "BATCH_KEY: BTOKEN" \
+curl "https://api.batchpack.co/v1/verify/creat_app/BTOKEN" \
+-H "apikey: API_KEY" \
 -d '{"appname": "Verify App", "comments": "DIGITALOCEAN"}' \
 -X POST
 ```
@@ -250,7 +251,7 @@ As part of BatchPack's account security offerings, the BatchPack Verify API make
 
 ### HTTP Request
 
-`POST https://api.batchpack.co/v1/verify/creat_app/API_KEY`
+`POST https://api.batchpack.co/v1/verify/creat_app/BTOKEN`
 
 ### Query Parameters
 
@@ -266,8 +267,8 @@ comments | true | Any random.
 ## Send OTP
 
 ```shell
-curl "https://api.batchpack.co/v1/verify/initiate_otp/API_KEY" \
--H "BATCH_KEY: BTOKEN" \
+curl "https://api.batchpack.co/v1/verify/initiate_otp/BTOKEN" \
+-H "apikey: API_KEY" \
 -d '{"phone": "9087656788", "countryCode": "+1", "verifyApp": "GOOG"}' \
 -X POST
 ```
@@ -287,7 +288,7 @@ When the user is validating their phone number on your app, BatchPack Verify sen
 
 ### HTTP Request
 
-`POST https://api.batchpack.co/v1/verify/initiate_otp/API_KEY`
+`POST https://api.batchpack.co/v1/verify/initiate_otp/BTOKEN`
 
 ### URL Parameters
 
@@ -301,8 +302,8 @@ callback | false | A POST endpoint to recive the sucess or failure response
 ## Complete Verification
 
 ```shell
-curl "https://api.batchpack.co/v1/verify/verify_otp/API_KEY" \
--H "BATCH_KEY: BTOKEN" \
+curl "https://api.batchpack.co/v1/verify/verify_otp/BTOKEN" \
+-H "apikey: API_KEY" \
 -d '{"phone": "9087656788", "otp": "39751"}' \
 -X POST
 ```
@@ -321,7 +322,7 @@ Complete verification api checks if the user’s input matches the code. If they
 
 ### HTTP Request
 
-`POST https://api.batchpack.co/v1/verify/verify_otp/API_KEY`
+`POST https://api.batchpack.co/v1/verify/verify_otp/BTOKEN`
 
 
 # Billing
@@ -330,25 +331,18 @@ Complete verification api checks if the user’s input matches the code. If they
 
 
 ```shell
-curl "https://api.batchpack.co/v1/company/get_balances/API_KEY" \
--H "BATCH_KEY: BTOKEN" \
+curl "https://api.batchpack.co/v1/company/get_balances/BTOKEN" \
+-H "apikey: API_KEY" \
 ```
 
 > Response:
 
 ```json
 {
-  "totalDeposits": 50000.0,
-  "totalUsed": 3074.0,
-  "currentBalance": 1926.0,
-  "currency": {
-  "code": "USD",
-  "name": "US Dollar",
-  "decimalPlaces": 2,
-  "displaySymbol": "$",
-  "nameCode": "currency.USD",
-  "displayLabel": "US Dollar ($)"
-}
+  "accountBalance": 609,
+  "totalDeposit": 609,
+  "currency": "NGN",
+  "status": 200
 }
 ```
 
@@ -356,7 +350,7 @@ Check available Balance on your BatchPack's account
 
 ### HTTP Request
 
-`GET https://api.batchpack.co/v1/verify/creat_app/API_KEY`
+`GET https://api.batchpack.co/v1/verify/creat_app/BTOKEN`
 
 
 <aside class="success">
