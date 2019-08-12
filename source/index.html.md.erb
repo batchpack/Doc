@@ -65,7 +65,6 @@ curl "https://api.batchpack.co/v1/company/send_message/BTOKEN" \
   "id": 54,
   "message_body": "Text test conditonal ",
   "receiver_number": "+2348107176019",
-  "message_callback": null,
   "user_id": 6,
   "created_at": "2019-07-15T22:27:39.808Z",
   "updated_at": "2019-07-15T22:27:39.808Z",
@@ -89,7 +88,6 @@ Parameter | Default | Description
 fromPhoneNumber | true | Your BatchPack phone number or senderID
 toPhoneNumber | true | The recipient number to receive the sms.
 message | true | The body of the sms.
-callback | false | Add a url for receving webhook.
 
 <aside class="success">
   Remember — BatchPack give you 15 fress SMS
@@ -189,7 +187,6 @@ curl "https://api.batchpack.co/v1/company/view_messages/BTOKEN" \
   "id": 24,
   "message_body": "Transaction sms",
   "receiver_number": "+2348107176019",
-  "message_callback": "http://4a5fe8c3.ngrok.io/v1/agents/wehbook",
   "user_id": 6,
   "created_at": "2019-07-10T16:47:36.073Z",
   "updated_at": "2019-07-10T16:47:36.073Z",
@@ -202,7 +199,6 @@ curl "https://api.batchpack.co/v1/company/view_messages/BTOKEN" \
   "id": 48,
   "message_body": "Text test conditonal sidekiq",
   "receiver_number": "+256752503147",
-  "message_callback": null,
   "user_id": 6,
   "created_at": "2019-07-12T20:25:16.072Z",
   "updated_at": "2019-07-12T20:25:16.072Z",
@@ -297,7 +293,6 @@ Parameter | Default | Description
 phone | true | Reciepeint phone number to br verified
 countryCode | true | The country code
 verifyApp | true | The name of the app to use for verification
-callback | false | A POST endpoint to recive the sucess or failure response
 
 ## Complete Verification
 
@@ -339,10 +334,9 @@ curl "https://api.batchpack.co/v1/company/get_balances/BTOKEN" \
 
 ```json
 {
-  "accountBalance": 609,
-  "totalDeposit": 609,
-  "currency": "NGN",
-  "status": 200
+  "accountBalance": "300.0",
+  "totalDeposit": "300.0",
+  "currency": "USD"
 }
 ```
 
