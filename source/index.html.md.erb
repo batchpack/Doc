@@ -33,17 +33,17 @@ curl "https://api.batchpack.co/v1/example_endpoint/BTOKEN"
 -H "apikey: API_KEY"
 ```
 
-> Make sure to keep your `BATCH_KEY` & `API_KEY` save.
+> Make sure to keep your `BTOKEN` & `API_KEY` save.
 
-Before we get started, sign up to BatchPack for free and collect your live API_KEY from the Dashboard. [Admin Dashboard](http://app.batchpack.co).
+Before we get started, sign up to BatchPack for free and collect your live API_KEY from the [Dashboard](http://app.batchpack.co).
 
-Next, enter your Api Key and BATCH_KEY key to your headers - as both the originator and recipient.
+Next, enter your BTOKEN key at the end of your the url
 
 `API_KEY` &
 `BTOKEN`
 
 <aside class="notice">
-  You must replace <code>API_KEY</code> and <code>BTOKEN</code> with your personal Credentials.
+  You must replace <code>API_KEY</code> and <code>BTOKEN</code> with your personal Credentials from your profile page
 </aside>
 
 # Programmatic SMS
@@ -75,7 +75,7 @@ curl "https://api.batchpack.co/v1/company/send_message/BTOKEN" \
 }
 ```
 
-Using BatchPack's REST API, you can send outgoing SMS messages from your BatchPack phone number to mobile phones around the globe.
+Using BatchPack's REST API, you can send outgoing SMS messages from your BatchPack senderId to any phone number across the globe.
 
 ### HTTP Request
 
@@ -85,12 +85,12 @@ Using BatchPack's REST API, you can send outgoing SMS messages from your BatchPa
 
 Parameter | Default | Description
 --------- | ------- | -----------
-fromPhoneNumber | true | Your BatchPack phone number or senderID
+fromPhoneNumber | true | Your BatchPack senderID
 toPhoneNumber | true | The recipient number to receive the sms.
 message | true | The body of the sms.
 
 <aside class="success">
-  Remember — BatchPack give you 15 fress SMS
+  Signup — BatchPack give you a $1 credit for SMS
 </aside>
 
 ## Create Sender ID
