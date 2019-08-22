@@ -37,7 +37,7 @@ curl "https://api.batchpack.co/v1/example_endpoint/BTOKEN"
 
 Before we get started, sign up to BatchPack for free and collect your live API_KEY from the [Dashboard](http://app.batchpack.co).
 
-Next, enter your BTOKEN key at the end of your the url
+Next, enter your BTOKEN key at the end of your the url 
 
 `API_KEY` &
 `BTOKEN`
@@ -54,7 +54,7 @@ Next, enter your BTOKEN key at the end of your the url
 ```shell
 curl "https://api.batchpack.co/v1/company/send_message/BTOKEN" \
 -H "apikey: API_KEY" \
--d '{"fromPhoneNumber": "+213456790", "toPhoneNumber": +15467876786, "message": "Hi There, Thanks!}' \
+-d '{"fromPhoneNumber": "BATCHPACK", "toPhoneNumber": +15467876786, "message": "Hi There, Thanks!}' \
 -X POST
 ```
 
@@ -75,7 +75,7 @@ curl "https://api.batchpack.co/v1/company/send_message/BTOKEN" \
 }
 ```
 
-Using BatchPack's REST API, you can send outgoing SMS messages from your BatchPack senderId to any phone number across the globe.
+Using BatchPack's REST API, you can send outgoing SMS messages from your BatchPack senderId to any phone number across the globe. At fisrt registration, you will be assigned a default senderId as BATCHPACK until your senderId application is approved.
 
 ### HTTP Request
 
@@ -109,14 +109,14 @@ curl "https://api.batchpack.co/v1/company/buy_sender_id/BTOKEN" \
   "id": 4,
   "sender_id": "STANBICBANK",
   "comment": "This is my first sender id",
-  "status": "Active",
+  "status": "Pending Verification",
   "user_id": 6,
   "created_at": "2019-07-14T07:32:31.431Z",
   "updated_at": "2019-07-14T07:32:31.431Z"
 }
 ```
 
-Alphanumeric sender IDs are used for branded one-way messaging. Alphanumeric sender IDs may be used at no additional cost when sending an SMS to countries that support this feature.
+Alphanumeric sender IDs are used for branded one-way messaging. Alphanumeric sender IDs may be used at no additional cost when sending an SMS to countries that support this feature. Without a verified senderID you may not be able to send a message using batchpack
 
 
 ### HTTP Request
