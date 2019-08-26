@@ -63,25 +63,25 @@ curl "https://api.batchpack.co/v1/company/send_message/BTOKEN" \
 ```json
 {
   "data": {
-    "id": 93,
-    "message_body": "Text test conditonal ",
-    "receiver_number": "+2348098151010",
-    "created_at": "2019-08-26T15:20:48.965Z",
-    "mesage_refernce": "SMBTP69222406315024167175",
-    "status": "sending",
-    "unit": "USD",
-    "send_id": "JWT",
-    "receiverData": {
-      "countryCode": "NG",
-      "nationalFormat": "0809 815 1010",
-      "mobileCountryCode": "621",
-      "mobileNetworkName": "60",
-      "telcoName": "9Mobile Nigeria (Etisalat)",
-      "numbertype": "mobile",
-      "amount": "JWT"
-    }
-  },
-  "gatewayResponse": "message queued"
+  "id": 93,
+  "message_body": "Text test conditonal ",
+  "receiver_number": "+2348098151010",
+  "created_at": "2019-08-26T15:20:48.965Z",
+  "mesage_refernce": "SMBTP69222406315024167175",
+  "status": "sending",
+  "unit": "USD",
+  "send_id": "JWT",
+  "receiverData": {
+  "countryCode": "NG",
+  "nationalFormat": "0809 815 1010",
+  "mobileCountryCode": "621",
+  "mobileNetworkName": "60",
+  "telcoName": "9Mobile Nigeria (Etisalat)",
+  "numbertype": "mobile",
+  "amount": "JWT"
+}
+},
+"gatewayResponse": "message queued"
 }
 ```
 
@@ -100,7 +100,7 @@ toPhoneNumber | true | The recipient number to receive the sms.
 message | true | The body of the sms.
 
 <aside class="success">
-  Signup — BatchPack give you a $1 credit for SMS
+  Signup — BatchPack give you 15 free SMS on trail
 </aside>
 
 ## Create Sender ID
@@ -127,7 +127,7 @@ curl "https://api.batchpack.co/v1/company/buy_sender_id/BTOKEN" \
 }
 ```
 
-Alphanumeric sender IDs are used for branded one-way messaging. Alphanumeric sender IDs may be used at no additional cost when sending an SMS to countries that support this feature. Without a verified senderID you may not be able to send a message using batchpack
+Alphanumeric sender IDs are used for branded one-way messaging. Alphanumeric sender IDs cost $1. Without a verified senderID you may not be able to send a message using batchpack or keep using the default BATCHPACK
 
 
 ### HTTP Request
