@@ -65,7 +65,7 @@ curl "https://api.batchpack.co/v1/company/send_message/BTOKEN" \
   "data": {
   "id": 70,
   "message_body": "Text test conditonal ",
-  "receiver_number": "+2348098151010",
+  "receiver_number": "+15467876786",
   "created_at": "2019-08-25T20:38:17.235Z",
   "mesage_refernce": "SMBTP92528136604995757999",
   "status": "sending",
@@ -100,7 +100,7 @@ message | true | The body of the sms.
 ```shell
 curl "https://api.batchpack.co/v1/company/buy_sender_id/BTOKEN" \
 -H "apikey: API_KEY" \
--d '{"senderId": "COCACOLA", "comments": "My new sms id for promotional messages"}' \
+-d '{"senderId": "COCACOLA", "comments": "My new sms id for promotional messages", "category": "Marketing"}' \
 -X POST
 ```
 
@@ -108,13 +108,14 @@ curl "https://api.batchpack.co/v1/company/buy_sender_id/BTOKEN" \
 
 ```json
 {
-  "id": 4,
-  "sender_id": "STANBICBANK",
-  "comment": "This is my first sender id",
+  "id": 7,
+  "sender_id": "SAM",
+  "comment": "My new sms id for promotional messages",
   "status": "Pending Verification",
-  "user_id": 6,
-  "created_at": "2019-07-14T07:32:31.431Z",
-  "updated_at": "2019-07-14T07:32:31.431Z"
+  "user_id": 1,
+  "created_at": "2019-08-22T07:40:39.473Z",
+  "updated_at": "2019-08-22T07:40:39.473Z",
+  "category": "Marketing"
 }
 ```
 
@@ -147,17 +148,19 @@ curl "https://api.batchpack.co/v1/company/list_sender_id/BTOKEN" \
   "id": 3,
   "sender_id": "8909887",
   "comment": "This is my first sender id",
-  "status": "Active",
+  "status": "Pending verification",
   "user_id": 6,
+  "category": "Marketing",
   "created_at": "2019-07-09T07:31:52.627Z",
   "updated_at": "2019-07-09T07:31:52.627Z"
 },
 {
   "id": 3,
-  "sender_id": "FACEBOOK",
+  "sender_id": "AXA",
   "comment": "This is my first sender id",
-  "status": "Active",
+  "status": "Pending verification",
   "user_id": 6,
+  "category": "Marketing",
   "created_at": "2019-07-09T07:31:52.627Z",
   "updated_at": "2019-07-09T07:31:52.627Z"
 }
@@ -184,32 +187,54 @@ curl "https://api.batchpack.co/v1/company/view_messages/BTOKEN" \
 > Response:
 
 ```json
-[
 {
-  "id": 24,
-  "message_body": "Transaction sms",
-  "receiver_number": "+2348107176019",
-  "user_id": 6,
-  "created_at": "2019-07-10T16:47:36.073Z",
-  "updated_at": "2019-07-10T16:47:36.073Z",
-  "mesage_refernce": "SM39eb77bea06e40b09fb7826fc6cfaa68",
-  "status": "success",
-  "cost": "2.0",
-  "send_id": "TESTSAAS"
-},
-{
-  "id": 48,
-  "message_body": "Text test conditonal sidekiq",
-  "receiver_number": "+256752503147",
-  "user_id": 6,
-  "created_at": "2019-07-12T20:25:16.072Z",
-  "updated_at": "2019-07-12T20:25:16.072Z",
-  "mesage_refernce": "SMfcd11e63c42e41068f48fa13e22aea4b",
-  "status": "queued",
-  "cost": "2.0",
-  "send_id": "+18066864491"
+  "data": [
+  {
+    "id": 29,
+    "message_body": "body is here",
+    "receiver_number": "+15467889003",
+    "message_callback": null,
+    "user_id": 2,
+    "created_at": "2019-08-26T12:24:19.208Z",
+    "updated_at": "2019-08-26T12:24:20.160Z",
+    "mesage_refernce": "SMBTP53851020260907332328",
+    "status": "sent",
+    "cost": "0.00",
+    "send_id": "BATCHPACK",
+    "gatewayKey": "SM9c5de35906f34b4baf54a7aa995ce3ec"
+  },
+  {
+    "id": 8,
+    "message_body": "BATCHPACK IS LIVE!!",
+    "receiver_number": "+15467889003",
+    "message_callback": null,
+    "user_id": 2,
+    "created_at": "2019-08-18T12:12:38.394Z",
+    "updated_at": "2019-08-18T12:12:38.394Z",
+    "mesage_refernce": "SMBTP54218325469295552031",
+    "status": "sent",
+    "cost": "0.0041",
+    "send_id": "MKOBO",
+    "gatewayKey": null
+  },
+  {
+    "id": 7,
+    "message_body": "body is here",
+    "receiver_number": "+15467889003",
+    "message_callback": null,
+    "user_id": 2,
+    "created_at": "2019-08-18T12:11:29.619Z",
+    "updated_at": "2019-08-18T12:11:29.619Z",
+    "mesage_refernce": "SMBTP56530937989743769158",
+    "status": "sent",
+    "cost": "0.0041",
+    "send_id": "MKOBO",
+    "gatewayKey": null
+  }
+  ],
+  "totalCount": 3,
+  "nextPage": 0
 }
-]
 ```
 
 You can use BatchPack's SMS API to retrieve information of an existing outbound SMS message.
