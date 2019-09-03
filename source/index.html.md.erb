@@ -247,52 +247,12 @@ You only need to supply the unique client id that was returned upon creation.
 
 # BatchPack Verify
 
-## Create a Verify APP
-
-
-```shell
-curl "https://api.batchpack.co/v1/verify/creat_app/BTOKEN" \
--H "apikey: API_KEY" \
--d '{"appname": "Verify App", "comments": "DIGITALOCEAN"}' \
--X POST
-```
-
-> Response:
-
-```json
-{
-  "id": 2,
-  "app": "DIGITALOCEAN",
-  "comments": "Verify OTP App",
-  "user_id": 6,
-  "created_at": "2019-07-16T07:40:04.122Z",
-  "updated_at": "2019-07-16T07:40:04.122Z"
-}
-```
-
-As part of BatchPack's account security offerings, the BatchPack Verify API makes it simple to add phone verification to your web and mobile application. It supports codes sent via and SMS. To start working with the API, first create an application with the endpoint below.
-
-### HTTP Request
-
-`POST https://api.batchpack.co/v1/verify/creat_app/BTOKEN`
-
-### Query Parameters
-
-Parameter | Default | Description
---------- | ------- | -----------
-appname | true | Name of the authentication app on BatchPack
-comments | true | Any random.
-
-<aside class="success">
-  BatchPack Help You do anything SMS
-</aside>
-
 ## Send OTP
 
 ```shell
 curl "https://api.batchpack.co/v1/verify/initiate_otp/BTOKEN" \
 -H "apikey: API_KEY" \
--d '{"phone": "9087656788", "countryCode": "+1", "verifyApp": "GOOG"}' \
+-d '{"phone": "9087656788", "countryCode": "+1", "verifyApp": "BATCHPACK"}' \
 -X POST
 ```
 
@@ -319,7 +279,7 @@ Parameter | Default | Description
 --------- | -------| -------------
 phone | true | Reciepeint phone number to br verified
 countryCode | true | The country code
-verifyApp | true | The name of the app to use for verification
+verifyApp | true | Your sender ID
 
 ## Complete Verification
 
