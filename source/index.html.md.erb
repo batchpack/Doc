@@ -245,67 +245,6 @@ You only need to supply the unique client id that was returned upon creation.
 
 `GET https://api.batchpack.co/v1/company/view_messages/BTOKEN`
 
-# BatchPack Verify
-
-## Send OTP
-
-```shell
-curl "https://api.batchpack.co/v1/verify/initiate_otp/BTOKEN" \
--H "apikey: API_KEY" \
--d '{"phone": "9087656788", "countryCode": "+1", "verifyApp": "BATCHPACK"}' \
--X POST
-```
-
-> Response:
-
-```json
-{
-  "phone": "+2349054225763",
-  "message": "OTP sent succesfully"
-}
-```
-
-When the user is validating their phone number on your app, BatchPack Verify sends the user a 4-10 digit verification code via SMS
-
-<%= image_tag "goog.jpeg" %>
-
-### HTTP Request
-
-`POST https://api.batchpack.co/v1/verify/initiate_otp/BTOKEN`
-
-### URL Parameters
-
-Parameter | Default | Description
---------- | -------| -------------
-phone | true | Reciepeint phone number to br verified
-countryCode | true | The country code
-verifyApp | true | Your sender ID
-
-## Complete Verification
-
-```shell
-curl "https://api.batchpack.co/v1/verify/verify_otp/BTOKEN" \
--H "apikey: API_KEY" \
--d '{"phone": "9087656788", "otp": "39751"}' \
--X POST
-```
-
-> Response:
-
-```json
-{
-  "phone": "9054225763",
-  "message": "OTP succesfully verified"
-}
-```
-
-Complete verification api checks if the user’s input matches the code. If they match, Verify registers the phone number as approved.
-
-
-### HTTP Request
-
-`POST https://api.batchpack.co/v1/verify/verify_otp/BTOKEN`
-
 
 # Billing
 
