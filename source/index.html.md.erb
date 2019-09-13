@@ -2,7 +2,8 @@
 title: API Reference
 
 language_tabs: # must be one of https://git.io/vQNgJ
-- Curl
+- shell
+- ruby
 
 toc_footers:
 - <a href='https://app.batchpack.co'>Sign Up for a BatchPack Key</a>
@@ -26,6 +27,15 @@ You’ve got an idea in mind. Let’s get it to production.
 
 > To authorize, use this code:
 
+```ruby
+require "httparty"
+
+apiKey = ENV["APIK_KEY"]
+bToken = ENV["BTOKEN"]
+    initBatchpPack = HTTParty.post("https://api.batchpack.co/v1/company/send_message/#{bToken}",
+      :headers => { "apikey"=> apiKey, "content-type" => "application/json"})
+    puts initBatchpPack
+```
 
 ```shell
 # With shell, you can just pass the correct header with each request
@@ -51,10 +61,20 @@ Next, enter your BTOKEN key at the end of your the url
 ## Send an SMS
 
 
+```ruby
+require "httparty"
+
+apiKey = ENV["APIK_KEY"]
+bToken = ENV["BTOKEN"]
+    triggerSms = HTTParty.post("https://api.batchpack.co/v1/company/send_message/#{bToken}",
+      :body => {"fromPhoneNumber": "BATCHPACK", "toPhoneNumber": +15467876786, "message": "Hi There, Thanks!", "callback": "https://9dcc0399.ngrok.io/v1/post/wehbook"},
+      :headers => { "apikey"=> apiKey, "content-type" => "application/json"})
+    puts triggerSms
+```
 ```shell
 curl "https://api.batchpack.co/v1/company/send_message/BTOKEN" \
 -H "apikey: API_KEY" \
--d '{"fromPhoneNumber": "BATCHPACK", "toPhoneNumber": +15467876786, "message": "Hi There, Thanks!}' \
+-d '{"fromPhoneNumber": "BATCHPACK", "toPhoneNumber": "+15467876786", "message": "Hi There, Thanks!", "callback": "https://9dcc0399.ngrok.io/v1/post/wehbook"}" \
 -X POST
 ```
 
@@ -95,12 +115,111 @@ message | true | The body of the sms.
   Signup — BatchPack give you 15 free SMS on trail
 </aside>
 
-## Create Sender ID
+## List All SMS
+
+```ruby
+require "httparty"
+
+apiKey = ENV["APIK_KEY"]
+bToken = ENV["BTOKEN"]
+    apiKey = ENV["APIK_KEY"]
+  bToken = ENV["BTOKEN"]
+    viewMessage = HTTParty.get("https://api.batchpack.co/v1/company/view_messages/#{bToken}",
+      :headers => { "apikey"=> apiKey, "content-type" => "application/json"})
+    puts viewMessage
+```
+```shell
+curl "https://api.batchpack.co/v1/company/view_messages/BTOKEN" \
+-H "apikey: API_KEY" \
+```
+
+> Response:
+
+```json
+{
+  "data": [
+  {
+        {
+      "id": 122,
+      "message_body": "Lorem ipsum dolor sit amet adipiscing elits",
+      "receiver_number": "+2348107176019",
+      "user_id": 17,
+      "created_at": "2019-08-28T00:48:02.942Z",
+      "updated_at": "2019-08-28T00:48:10.492Z",
+      "mesage_refernce": "SMBTP69814227010589869943",
+      "status": "delivered",
+      "cost": "0.0082",
+      "send_id": "BATCHPACK",
+      "gatewayKey": "SM3d67f33020d14870aa2f8ab89876d57e",
+      "version": "v1",
+      "timesent": null,
+      "messageSegment": "2",
+      "webhook_url": null
+    }
+  ],
+}
+}
+```
+
+You can use BatchPack's SMS API to retrieve information of an existing outbound SMS message.
+
+You only need to supply the unique client id that was returned upon creation.
+
+### HTTP Request
+
+`GET https://api.batchpack.co/v1/company/view_messages/BTOKEN`
+
+# Phone Number & SenderID
+
+## Check Available Number
+
+```shell
+curl "https://api.batchpack.co/v1/company/searchNumber/BTOKEN" \
+-H "apikey: API_KEY" \
+```
+
+> Response:
+
+```json
+
+"available_phone_numbers": [
+{
+  "friendly_name": "(510) 726-9549",
+  "phone_number": "+15107269549",
+  "lata": "722",
+  "rate_center": "OKLD MN-PD",
+  "latitude": "37.800000",
+  "longitude": "-122.260000",
+  "locality": "OAKLAND",
+  "region": "CA",
+  "postal_code": "94615",
+  "iso_country": "US",
+  "address_requirements": "none",
+  "beta": false,
+    "capabilities": {
+      "voice": true,
+      "SMS": true,
+      "MMS": true,
+      "fax": false
+    }
+  }
+]
+```
+
+On BatchPack V1, we currently offer only US numbers. BatchPack phone numbers are immediately purchased when bought, but senderID is not.
+
+
+### HTTP Request
+
+`POST https://api.batchpack.co/v1/company/searchNumber/BTOKEN`
+
+
+## Phone Number & Sender ID
 
 ```shell
 curl "https://api.batchpack.co/v1/company/buy_sender_id/BTOKEN" \
 -H "apikey: API_KEY" \
--d '{"senderId": "COCACOLA", "comments": "My new sms id for promotional messages", "category": "Marketing"}' \
+-d '{"senderId": "COCACOLA", "comments": "My new sms id for promotional messages", "category": "Marketing", "phone": "+15106942131", "rateCenter": "", "region": "LA", "postalCode": "45673"}' \
 -X POST
 ```
 
@@ -119,7 +238,7 @@ curl "https://api.batchpack.co/v1/company/buy_sender_id/BTOKEN" \
 }
 ```
 
-Alphanumeric sender IDs are used for branded one-way messaging. Alphanumeric sender IDs cost $1. Without a verified senderID you may not be able to send a message using batchpack or keep using the default BATCHPACK
+Alphanumeric sender IDs are used for branded one-way messaging. Alphanumeric sender IDs and a custom phone number cost $1.50. Without a verified senderID you may not be able to send a message using your custom senderID but you can continue sending with you already purchased phone number. If you do not have any of the sender number or Alphanumeric ID, you will only be able to send a message using "BATCHPACK" as senderID
 
 
 ### HTTP Request
@@ -144,26 +263,32 @@ curl "https://api.batchpack.co/v1/company/list_sender_id/BTOKEN" \
 
 ```json
 [
-{
-  "id": 3,
-  "sender_id": "8909887",
-  "comment": "This is my first sender id",
-  "status": "Pending verification",
-  "user_id": 6,
-  "category": "Marketing",
-  "created_at": "2019-07-09T07:31:52.627Z",
-  "updated_at": "2019-07-09T07:31:52.627Z"
-},
-{
-  "id": 3,
-  "sender_id": "AXA",
-  "comment": "This is my first sender id",
-  "status": "Pending verification",
-  "user_id": 6,
-  "category": "Marketing",
-  "created_at": "2019-07-09T07:31:52.627Z",
-  "updated_at": "2019-07-09T07:31:52.627Z"
-}
+[
+  {
+    "id": 16,
+    "sender_id": "MMMM",
+    "comment": "This is my first sender id",
+    "senderid_status": "Pending Verification",
+    "user_id": 17,
+    "created_at": "2019-09-05T08:59:22.691Z",
+    "updated_at": "2019-09-05T08:59:22.691Z",
+    "category": "Marketing",
+    "phone": "+15106620133",
+    "rate_center": "BELLEFONTN",
+    "region": "AL",
+    "postal_code": "456789",
+    "country": "US",
+    "address_requirements": "none",
+    "voice": null,
+    "sms": null,
+    "mms": null,
+    "fax": null,
+    "amount": "1.5",
+    "lata": "480",
+    "renewDate": "2019-10-05 09:59:22 +0100",
+    "numberSid": null,
+    "phone_status": "Active"
+  }
 ]
 ```
 
@@ -175,75 +300,6 @@ Use this endpoint to get all available sender ID
 `POST https://api.batchpack.co/v1/company/list_sender_id/BTOKEN`
 
 This endpoint retruns an array of all the sms sent 
-
-## List All SMS
-
-
-```shell
-curl "https://api.batchpack.co/v1/company/view_messages/BTOKEN" \
--H "apikey: API_KEY" \
-```
-
-> Response:
-
-```json
-{
-  "data": [
-  {
-    "id": 29,
-    "message_body": "body is here",
-    "receiver_number": "+15467889003",
-    "message_callback": null,
-    "user_id": 2,
-    "created_at": "2019-08-26T12:24:19.208Z",
-    "updated_at": "2019-08-26T12:24:20.160Z",
-    "mesage_refernce": "SMBTP53851020260907332328",
-    "status": "sent",
-    "cost": "0.00",
-    "send_id": "BATCHPACK",
-    "gatewayKey": "SM9c5de35906f34b4baf54a7aa995ce3ec"
-  },
-  {
-    "id": 8,
-    "message_body": "BATCHPACK IS LIVE!!",
-    "receiver_number": "+15467889003",
-    "message_callback": null,
-    "user_id": 2,
-    "created_at": "2019-08-18T12:12:38.394Z",
-    "updated_at": "2019-08-18T12:12:38.394Z",
-    "mesage_refernce": "SMBTP54218325469295552031",
-    "status": "sent",
-    "cost": "0.0041",
-    "send_id": "MKOBO",
-    "gatewayKey": null
-  },
-  {
-    "id": 7,
-    "message_body": "body is here",
-    "receiver_number": "+15467889003",
-    "message_callback": null,
-    "user_id": 2,
-    "created_at": "2019-08-18T12:11:29.619Z",
-    "updated_at": "2019-08-18T12:11:29.619Z",
-    "mesage_refernce": "SMBTP56530937989743769158",
-    "status": "sent",
-    "cost": "0.0041",
-    "send_id": "MKOBO",
-    "gatewayKey": null
-  }
-  ],
-  "totalCount": 3,
-  "nextPage": 0
-}
-```
-
-You can use BatchPack's SMS API to retrieve information of an existing outbound SMS message.
-
-You only need to supply the unique client id that was returned upon creation.
-
-### HTTP Request
-
-`GET https://api.batchpack.co/v1/company/view_messages/BTOKEN`
 
 
 # Billing
@@ -270,7 +326,7 @@ Check available Balance on your BatchPack's account
 
 ### HTTP Request
 
-`GET https://api.batchpack.co/v1/verify/creat_app/BTOKEN`
+`GET https://api.batchpack.co/v1/company/get_balances/BTOKEN`
 
 
 <aside class="success">
