@@ -5,6 +5,7 @@ language_tabs: # must be one of https://git.io/vQNgJ
 - shell
 - ruby
 - javascript
+- python
 
 toc_footers:
 - <a href='https://app.batchpack.co'>Sign Up for a BatchPack Key</a>
@@ -31,6 +32,13 @@ Add gem 'httparty' to your Gemfile
 or
 # gem install httparty
 ```
+```python
+# To use the BatchPack's api seamlessly in python
+ pip install requests
+# and import the following
+import requests
+import json
+```
 
 # Authentication
 
@@ -48,6 +56,18 @@ require "httparty"
 # With shell, you can just pass the correct header with each request
 curl "https://api.batchpack.co/v1/example_endpoint/BTOKEN"
 -H "apikey: API_KEY"
+```
+
+```python
+def sendMessage():
+    api_endpoint = "https://api.batchpack.co/v1/company/example_endpoint/#BTOKEN"
+    data = {'fromPhoneNumber': SENDER_ID,
+            'toPhoneNumber': "+145678088", 'message': "The Message Body"}
+    
+    headers = {'Content-Type': 'application/json',
+               'apikey': API_KEY}
+sendMessage()
+
 ```
 
 
@@ -114,6 +134,27 @@ curl "https://api.batchpack.co/v1/company/send_message/BTOKEN" \
 -H "apikey: API_KEY" \
 -d '{"fromPhoneNumber": "BATCHPACK", "toPhoneNumber": "+15467876786", "message": "Hi There, Thanks!", "callback": "https://9dcc0399.ngrok.io/v1/post/wehbook"}" \
 -X POST
+```
+```python
+# Copy your API_KEY, BTOKEN, and SENDER_ID from your dashboard page
+def sendMessage():
+    api_endpoint = "https://api.batchpack.co/v1/company/send_message/#BTOKEN"
+    data = {'fromPhoneNumber': SENDER_ID,
+            'toPhoneNumber': "+2348107176019", 'message': "The Message Body"}
+    
+    headers = {'Content-Type': 'application/json',
+               'apikey': API_KEY}
+    try:
+        response = requests.post(
+            api_endpoint, data=json.dumps(data), headers=headers)
+        if response.ok:
+            print(response.json())
+        else:
+            print(response.status_code)
+    except Exception as e:
+        print(e)
+
+sendMessage()
 ```
 
 > Response:
